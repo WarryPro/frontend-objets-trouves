@@ -3,12 +3,13 @@
     <!-- <img alt="Vue logo" src="./assets/logo.png">
     <HelloWorld msg="Welcome to Your Vue.js App"/> -->
     <HeaderComponent></HeaderComponent>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
 // import HelloWorld from './components/HelloWorld.vue'
-import HeaderComponent from './components/HeaderComponent'
+import HeaderComponent from './components/header/HeaderComponent'
 
 export default {
   name: 'app',

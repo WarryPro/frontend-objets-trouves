@@ -1,12 +1,12 @@
 <template>
     <div>
-        Derniers objets
+        J'ai trouvé un objet
     </div>
 </template>
 
 <script>
     export default {
-        name: 'LastItemsComponent'
+        name: 'IFound'
     }
 </script>
 

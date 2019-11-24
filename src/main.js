@@ -8,6 +8,11 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 //ROUTES 
 import LastItems from './components/LastItemsComponent';
+import ItemsFound from './components/ItemsFound';
+import IFound from './components/IFound';
+import ILost from './components/ILost';
+import Login from './components/Login'
+import Signup from './components/Signup'
 
 Vue.config.productionTip = false
 
@@ -18,7 +23,23 @@ Vue.use(BootstrapVue)
 
 const routes = [
   { path: '/', 
-    component: LastItems },
+    component: LastItems
+  },
+  { path: '/objets', 
+    component: ItemsFound
+  },
+  { path: '/jai-trouve', 
+    component: IFound
+  },
+  { path: '/jai-perdu', 
+    component: ILost
+  },
+  { path: '/login', 
+    component: Login
+  },
+  { path: '/signup', 
+    component: Signup
+  },
 ];
 
 const router = new VueRouter({
