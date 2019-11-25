@@ -6,6 +6,12 @@ import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
+import ElementUI from 'element-ui';
+import locale from 'element-ui/lib/locale/lang/fr'
+import 'element-ui/lib/theme-chalk/index.css';
+import './assets/sass/app.scss';
+
+
 //ROUTES 
 import LastItems from './components/LastItemsComponent';
 import ItemsFound from './components/ItemsFound';
@@ -18,7 +24,8 @@ Vue.config.productionTip = false
 
 
 Vue.use(VueRouter);
-Vue.use(BootstrapVue)
+Vue.use(BootstrapVue);
+Vue.use(ElementUI, { locale });
 
 
 const routes = [
