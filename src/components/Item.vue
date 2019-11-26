@@ -1,12 +1,12 @@
 <template>
     <div>
-        J'ai perdu un objet
+        Item component
     </div>
 </template>
 
 <script>
     export default {
-        name: 'ILost'
+        name: 'Item'
     }
 </script>
 

@@ -19,6 +19,7 @@ import IFound from './components/IFound';
 import ILost from './components/ILost';
 import Login from './components/Login'
 import Signup from './components/Signup'
+import Item from './components/Item'
 
 Vue.config.productionTip = false
 
@@ -26,6 +27,7 @@ Vue.config.productionTip = false
 Vue.use(VueRouter);
 Vue.use(BootstrapVue);
 Vue.use(ElementUI, { locale });
+Vue.use(require('vue-moment'));
 
 
 const routes = [
@@ -34,6 +36,11 @@ const routes = [
   },
   { path: '/objets', 
     component: ItemsFound
+  },
+  {
+    path: '/objets/:id',
+    name: 'Item',
+    component: Item
   },
   { path: '/jai-trouve', 
     component: IFound

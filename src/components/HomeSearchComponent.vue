@@ -92,7 +92,7 @@ export default {
         keyword: [
           {
             required: true,
-            message: "Le nom ou type de l'objet",
+            message: "Le nom, catégorie ou type de l'objet",
             trigger: "change"
           }
         ]
