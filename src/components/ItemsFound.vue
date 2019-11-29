@@ -1,15 +1,87 @@
 <template>
-    <div>
-        objets trouvés
+  <div>
+    <div class="page-items">
+      <Filters></Filters>
+      <div>
+          <Search></Search>
+        <b-container class="items-container">
+          <el-card :body-style="{ padding: '0px' }" v-for="item in items.items" :key="item.id">
+            <img
+              src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
+              class="image"
+            />
+            <div style="padding: 20px;">
+              <h3 class="card__title">{{item.title}}</h3>
+              <div class="bottom">
+                <div class="author">
+                  <span class="author__label">Trouvé par</span>
+                  <span class="author__nom">{{item.author.firstname}} {{item.author.lastname}}</span>
+                </div>
+                <div class="category">
+                  <span class="category__label">Catégorie</span>
+                  <span class="category__nom">{{item.category}}</span>
+                </div>
+                <div class="date">
+                  <span class="date__label">Trouvé le</span>
+                  <span class="date__created">{{ item.created.date | dateFilter }}</span>
+                </div>
+                <b-button
+                  variant="dark"
+                  :to="{name: 'Item', params: {id : item.id}}"
+                >Je suis le propiétaire</b-button>
+              </div>
+            </div>
+          </el-card>
+        </b-container>
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
+    // Libraries
+    import axios from "axios";
+    import moment from "moment";
+    // custom components
+    import Filters from './Filters';
+    import Search from './search';
+
     export default {
-        name : 'ItemsFound'
+
+    name: "ItemsFound",
+
+    mounted() {
+        this.getItems();
+        moment.locale('fr');
+    },
+    components: {
+        'Filters' : Filters,
+        'Search'  : Search,
+    },
+
+    data() {
+        return {
+        items: []
+        };
+    },
+
+    filters: {
+        dateFilter: function(value) {
+        return value ? moment(value).format("DD MMMM YYYY") : "";
+        }
+    },
+
+    methods: {
+        getItems() {
+        axios.get("http://127.0.0.1:8000/items").then(res => {
+            if (res.data.status === "success") {
+            this.items = res.data;
+            }
+        });
+        }
     }
+    };
 </script>
 
 <style lang="scss" scoped>
-
 </style>

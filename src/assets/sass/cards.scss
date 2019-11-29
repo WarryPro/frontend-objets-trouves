@@ -1,0 +1,50 @@
+.image {
+    width: 100%;
+    display: block;
+    max-height: 260px;
+    object-fit: cover;
+}
+
+.card__title {
+    color: var(--dark);
+    font-size: 1rem;
+}
+
+.author,
+.category,
+.date {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+
+    &__label {
+        color: #999;
+    }
+
+    &__label,
+    &__created {
+        font-size: 13px;
+    }
+
+    &__nom {
+        text-transform: uppercase;
+        color: var(--gray);
+        font-size: 12px;
+    }
+}
+
+.category__nom,
+.date__created {
+    text-transform: initial;
+    color: var(--gray);
+}
+
+.bottom {
+    margin-top: 13px;
+    line-height: 12px;
+
+    .btn {
+        width: 100%;
+        font-size: .85rem;
+    }
+}

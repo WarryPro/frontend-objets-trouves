@@ -8,16 +8,16 @@
             <!-- navigation -->
             <b-collapse id="nav-collapse" is-nav>
                 <b-navbar-nav>
-                    <b-nav-item href="#" to="/" active-class="active">Accueil</b-nav-item>
-                    <b-nav-item href="#" to="objets" active-class="active">Objets trouvés</b-nav-item>
-                    <b-nav-item href="#" to="jai-trouve" active-class="active">J'ai trouvé un objet</b-nav-item>
-                    <b-nav-item href="#" to="jai-perdu" active-class="active">J'ai perdu un objet</b-nav-item>
+                    <b-nav-item href="#" :to="{path: '/'}">Accueil</b-nav-item>
+                    <b-nav-item href="#" :to="{path: '/objets'}" active-class="active">Objets trouvés</b-nav-item>
+                    <b-nav-item href="#" :to="{path: '/jai-trouve'}" active-class="active">J'ai trouvé un objet</b-nav-item>
+                    <b-nav-item href="#" :to="{path: '/jai-perdu'}" active-class="active">J'ai perdu un objet</b-nav-item>
                 </b-navbar-nav>
 
                 <!-- Right aligned nav items -->
                 <b-navbar-nav class="ml-auto">
-                    <b-nav-item href="#" to="login" active-class="active">Se connecter</b-nav-item>
-                    <b-button variant="dark" to="signup" active-class="active">S'enregistrer</b-button>
+                    <b-nav-item href="#" :to="{path: '/login'}" active-class="active">Se connecter</b-nav-item>
+                    <b-button variant="dark" :to="{path: 'signup'}" active-class="active">S'enregistrer</b-button>
                 </b-navbar-nav>
             </b-collapse>
         </b-navbar>

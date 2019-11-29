@@ -1,0 +1,47 @@
+// Mobile responsive (SM)
+.page-items {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 2rem;
+
+    .items-container {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-gap: 1.5rem;
+    }
+
+    // Tablet responsive (MD)
+    @media screen and (min-width: 768px){
+        grid-template-columns: 150px 1fr;
+
+        .items-container {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    // Large responsive (LG)
+    @media screen and (min-width: 992px){
+        grid-template-columns: 250px 1fr;
+        .items-container {
+            grid-template-columns: repeat(2, 1fr);
+            grid-gap: 2rem;
+        }
+    }
+    // XLarge responsive (XLG)
+    @media screen and (min-width: 1200px){
+        grid-template-columns: 1fr 4fr;
+        .items-container {
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 1.5rem;
+        }
+    }
+    // XXLarge responsive (XXLG)
+    @media screen and (min-width: 1580px){
+        grid-template-columns: 1fr 5fr;
+        .items-container {
+            grid-template-columns: repeat(4, 1fr);
+            grid-gap: 1.5rem;
+        }
+    }
+
+}
