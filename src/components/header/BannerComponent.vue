@@ -1,7 +1,7 @@
 <template>
     <!-- Banner -->
         <div class="banner">
-            <img src="../../assets/images/Background-banner.svg" alt="Banner" class="img-fluid">
+            <img src="@/assets/images/Background-banner.svg" alt="Banner" class="img-fluid">
 
             <div v-if="$route.path == '/'" class="banner__form">
                 <HomeSearch></HomeSearch>

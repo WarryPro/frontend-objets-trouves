@@ -3,7 +3,10 @@
     <div class="page-items">
       <Filters></Filters>
       <div>
-          <Search></Search>
+          <Search 
+            @search="querySearch" 
+            @state="getState"
+            :defaultItems="items.items"></Search>
         <b-container class="items-container">
           <el-card :body-style="{ padding: '0px' }" v-for="item in items.items" :key="item.id">
             <img
@@ -39,6 +42,7 @@
 </template>
 
 <script>
+  import {Global} from '../../Global'
     // Libraries
     import axios from "axios";
     import moment from "moment";
@@ -60,24 +64,38 @@
     },
 
     data() {
-        return {
-        items: []
-        };
+      return {
+        VUE_APP_URL: Global.VUE_APP_URL,
+        items: [],
+        defaultItems: [],
+      };
     },
 
     filters: {
         dateFilter: function(value) {
-        return value ? moment(value).format("DD MMMM YYYY") : "";
+          return value ? moment(value).format("DD MMMM YYYY") : "";
         }
     },
 
     methods: {
         getItems() {
-        axios.get("http://127.0.0.1:8000/items").then(res => {
-            if (res.data.status === "success") {
-            this.items = res.data;
-            }
-        });
+          axios.get(this.VUE_APP_URL + "items").then(res => {
+              if (res.data.status === "success") {
+              this.items = res.data;
+              this.defaultItems = res.data;
+              }
+          }).catch((error) => {
+            console.log(error);
+          });
+        },
+
+        querySearch(items) {
+          this.items.items = items;
+        },
+        getState(state) {
+          if(state === " " || state === "") {
+            this.getItems();
+          }
         }
     }
     };

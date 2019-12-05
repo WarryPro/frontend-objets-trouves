@@ -24,13 +24,17 @@
 
     <!-- Submit -->
     <el-form-item>
-      <el-button icon="el-icon-search" type="primary" @click="submitForm('homeSearch')">Rechercher</el-button>
+      <el-button 
+        icon="el-icon-search" 
+        type="primary" 
+        @click="submitForm('homeSearch')">Rechercher</el-button>
     </el-form-item>
   </el-form>
 </template>
 
 <script>
-// import axios from 'axios';
+import axios from 'axios';
+import moment from 'moment';
 export default {
   name: "HomeSearch",
 
@@ -101,10 +105,24 @@ export default {
   },
 
   methods: {
-    submitForm(formName) {
-      this.$refs[formName].validate(valid => {
+    async submitForm(formName) {
+      await  this.$refs[formName].validate(valid => {
         if (valid) {
-          alert("submit!");
+          axios.get("http://127.0.0.1:8000/homesearch/", 
+          {
+            params: {
+              d: moment(this.homeSearch.date).format("YYYYMMDD"),
+              c: this.homeSearch.place,
+              q: this.homeSearch.keyword
+            }
+          }).then((res) => {
+            let itemsSearch = res.data;
+            // this.$emit("search", itemsSearch);
+            this.$router.push({name:'search', params: {'homeItemsSearch': itemsSearch}})
+          }).catch((error) =>{
+            console.log(error);
+          })
+
         } else {
           alert("error submit!!");
           return false;

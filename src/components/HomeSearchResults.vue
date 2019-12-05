@@ -3,9 +3,10 @@
     <div class="page-items">
       <Filters></Filters>
       <div>
-        <h2 class="title">Derniers objets trouvés et rapportés</h2>
+        <h2 class="title">Resultats de votre recherche</h2>
+        <p v-if="!items">Aucun objet trouvé...</p>
         <b-container class="items-container">
-            <el-card :body-style="{ padding: '0px' }" v-for="item in items.items" :key="item.id">
+            <el-card :body-style="{ padding: '0px' }" v-for="item in items" :key="item.id">
               <img
                 src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
                 class="image"
@@ -36,17 +37,16 @@
 </template>
 
 <script>
-import {Global} from '../../Global'
 // Libraries
-import axios from "axios";
+// import axios from "axios";
 import moment from "moment";
 // custom components
 import Filters from './Filters'
 export default {
-  name: "LastItemsComponent",
+  name: "HomeSearchResult",
 
   mounted() {
-    this.getItems();
+    this.items = this.$route.params.homeItemsSearch;
     moment.locale('fr');
   },
   components: {
@@ -55,7 +55,6 @@ export default {
 
   data() {
     return {
-      VUE_APP_URL: Global.VUE_APP_URL,
       items: []
     };
   },
@@ -63,16 +62,6 @@ export default {
   filters: {
     dateFilter: function(value) {
       return value ? moment(value).format("DD MMMM YYYY") : "";
-    }
-  },
-
-  methods: {
-    getItems() {
-      axios.get(this.VUE_APP_URL + "items").then(res => {
-        if (res.data.status === "success") {
-          this.items = res.data;
-        }
-      });
     }
   }
 };

@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
+import store from './store'
 import VueRouter from 'vue-router';
 import BootstrapVue from 'bootstrap-vue'
 
@@ -20,6 +21,7 @@ import ILost from './components/ILost';
 import Login from './components/Login'
 import Signup from './components/Signup'
 import Item from './components/Item'
+import HomeSearchResults from './components/HomeSearchResults'
 
 Vue.config.productionTip = false
 
@@ -31,10 +33,13 @@ Vue.use(require('vue-moment'));
 
 
 const routes = [
-  { path: '/', 
+  { 
+    name: 'home',
+    path: '/', 
     component: LastItems
   },
-  { path: '/objets', 
+  { name: 'objets',
+    path: '/objets', 
     component: ItemsFound
   },
   {
@@ -54,6 +59,11 @@ const routes = [
   { path: '/signup', 
     component: Signup
   },
+  {
+    name: 'search',
+    path: '/search',
+    component: HomeSearchResults
+  }
 ];
 
 const router = new VueRouter({
@@ -62,6 +72,7 @@ const router = new VueRouter({
 });
 
 new Vue({
+  store,
   router,
   render: h => h(App),
 }).$mount('#app')
