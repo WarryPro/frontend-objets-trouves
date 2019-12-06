@@ -1,7 +1,16 @@
 <template>
   <b-container>
-    <h2>Créez votre compte</h2>
     <el-form :model="signup" status-icon :rules="rules" ref="signup" class="form-user">
+
+      <h2 class="form-title">{{formTitle}}</h2>
+      <el-alert v-if="alert.type !== ''"
+        :title="alert.title"
+        :type="alert.type"
+        :closable=false
+        show-icon
+        >
+    </el-alert>
+
       <el-form-item prop="firstname">
         <el-input v-model="signup.firstname" placeholder="Votre prénom"></el-input>
       </el-form-item>
@@ -33,7 +42,7 @@
       </el-form-item>
 
       <el-form-item>
-        <el-button type="primary" @click="submitForm('signup')">CONTINUE</el-button>
+        <el-button type="primary" :loading="loading" @click="submitForm('signup')">{{messageButton}}</el-button>
       </el-form-item>
     </el-form>
   </b-container>
@@ -69,12 +78,19 @@ export default {
     };
     return {
       VUE_APP_URL: Global.VUE_APP_URL,
+      formTitle: 'Créez votre compte',
+      loading: false,
+      messageButton: "S'INSCRIRE",
       signup: {
         firstname: "",
         lastname: "",
         email: "",
         password: "",
         checkPassword: ""
+      },
+      alert: {
+        type: '',
+        title: '',
       },
 
       rules: {
@@ -105,17 +121,37 @@ export default {
         email: [
           {
             required: true,
-            message: "Please input email address",
+            message: "Tapez votre adresse email",
             trigger: "blur"
           },
           {
             type: "email",
-            message: "Please input correct email address",
+            message: "L'adresse email n'est pas valide",
             trigger: ["blur", "change"]
           }
         ],
-        password: [{ validator: validatePass, trigger: "blur" }],
-        checkPassword: [{ validator: validatePass2, trigger: "blur" }]
+        password: [
+          { 
+            validator: validatePass, 
+            trigger: "blur",
+          },
+          {
+            min: 6,
+            message: "Votre nom doit avoir au moins 6 carcts.",
+            trigger: "blur"
+          }
+        ],
+        checkPassword: [
+          { 
+            validator: validatePass2, 
+            trigger: "blur",
+          },
+          {
+            min: 6,
+            message: "Votre nom doit avoir au moins 6 carcts.",
+            trigger: "blur"
+          }
+        ]
       }
     };
   },
@@ -124,17 +160,35 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          axios
-            .post(this.VUE_APP_URL + "register", this.signup)
-            .then(res => {
-              console.log(res);
-              if (res.data.status !== "error") {
-                this.resetForm(formName);
-              }
-            })
-            .catch(error => {
-              console.log(error);
-            });
+          setTimeout(() => {
+            this.loading = true;
+            this.messageButton = "EN COURS..."
+            
+            axios.post(this.VUE_APP_URL + "register", this.signup)
+              .then(res => {
+                console.log(res);
+
+                if (res.data.status !== "error") {
+                  this.loading = false;
+                  this.messageButton = "COMPTE CRÉÉ";
+                  this.alert.type = "success";
+                  this.alert.title = res.data.message;
+                  this.resetForm(formName);
+                  this.close();
+
+                }else {
+                  this.loading = false;
+                  this.messageButton = "S'INSCRIRE"
+                  this.alert.type = "error";
+                  this.alert.title = res.data.message;
+                  this.close();
+                }
+              })
+              .catch(error => {
+                console.log(error);
+              });
+
+          },3000)
         } else {
           console.log("error submit!!");
           return false;
@@ -144,6 +198,12 @@ export default {
 
     resetForm(formName) {
       this.$refs[formName].resetFields();
+    },
+    close() {
+      setTimeout(() => {
+        this.alert.type = "";
+        this.alert.title = "";
+      },3000)
     }
   }
 };
@@ -153,7 +213,12 @@ export default {
 .form-user {
   max-width: 350px;
   margin: 0 auto;
-
+  padding: 1rem;
+  border: 1px solid #DCDFE6;
+  border-radius: 5px;
+  .el-alert {
+    margin-bottom: 1rem;
+  }
   .el-button {
     width: 100%;
   }
