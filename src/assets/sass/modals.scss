@@ -1,0 +1,17 @@
+.el-dialog {
+    width: calc(100% - 1rem);
+
+    // Tablet responsive (MD)
+    @media screen and (min-width: 568px) {
+        width: calc(350px + 3rem);
+    }
+}
+
+.el-message-box {
+    width: calc(100% - .5rem);
+
+    // Tablet responsive (MD)
+    @media screen and (min-width: 568px) {
+        width: calc(350px + 4rem);
+    }
+}

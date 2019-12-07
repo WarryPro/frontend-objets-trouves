@@ -2,7 +2,7 @@
   <b-container>
     <el-form :model="signup" status-icon :rules="rules" ref="signup" class="form-user">
 
-      <h2 class="form-title">{{formTitle}}</h2>
+      <!-- <h2 class="form-title">{{formTitle}}</h2> -->
       <el-alert v-if="alert.type !== ''"
         :title="alert.title"
         :type="alert.type"
@@ -41,7 +41,7 @@
         ></el-input>
       </el-form-item>
 
-      <el-form-item>
+      <el-form-item class="form-submit">
         <el-button type="primary" :loading="loading" @click="submitForm('signup')">{{messageButton}}</el-button>
       </el-form-item>
     </el-form>
@@ -78,7 +78,7 @@ export default {
     };
     return {
       VUE_APP_URL: Global.VUE_APP_URL,
-      formTitle: 'Créez votre compte',
+      // formTitle: 'Créez votre compte',
       loading: false,
       messageButton: "S'INSCRIRE",
       signup: {
@@ -210,17 +210,23 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.container {
+  padding: 0;
+}
 .form-user {
   max-width: 350px;
   margin: 0 auto;
-  padding: 1rem;
+  padding: 2rem 1rem;
   border: 1px solid #DCDFE6;
   border-radius: 5px;
   .el-alert {
     margin-bottom: 1rem;
   }
-  .el-button {
-    width: 100%;
+  .form-submit {
+    margin-bottom: 0;
+    .el-button {
+      width: 100%;
+    }
   }
 }
 </style>

@@ -5,18 +5,24 @@
     <transition name="fade" mode="out-in">
       <router-view></router-view>
     </transition>
+
+    <ModalFormSignup v-if="$store.state.signupVisible"></ModalFormSignup>
+    <ModalFormLogin v-if="$store.state.loginVisible"></ModalFormLogin>
   </div>
 </template>
 
 <script>
-// import HelloWorld from './components/HelloWorld.vue'
 import HeaderComponent from './components/header/HeaderComponent'
+import ModalFormSignup from './components/ModalFormSignup'
+import ModalFormLogin from './components/ModalFormLogin'
 
 export default {
   name: 'app',
   components: {
     // HelloWorld
-    HeaderComponent
+    HeaderComponent,
+    ModalFormSignup,
+    ModalFormLogin,
   }
 }
 </script>

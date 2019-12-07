@@ -16,8 +16,10 @@
 
                 <!-- Right aligned nav items -->
                 <b-navbar-nav class="ml-auto">
-                    <b-nav-item href="#" :to="{path: '/login'}" active-class="active">Se connecter</b-nav-item>
-                    <b-button variant="dark" :to="{path: 'signup'}" active-class="active">S'enregistrer</b-button>
+                    <!-- <b-nav-item href="#" :to="{path: '/login'}" active-class="active">Se connecter</b-nav-item>
+                    <b-button variant="dark" :to="{path: 'signup'}" active-class="active">S'enregistrer</b-button> -->
+                    <b-nav-item href="#" @click="$store.commit('showLoginForm')" active-class="active">Se connecter</b-nav-item>
+                    <b-button variant="dark" @click="$store.commit('showSignupForm')" active-class="active">S'enregistrer</b-button>
                 </b-navbar-nav>
             </b-collapse>
         </b-navbar>
