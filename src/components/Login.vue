@@ -91,15 +91,13 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
+          this.loading = true;
+          this.messageButton = "EN COURS..."
           setTimeout(() => {
-            this.loading = true;
-            this.messageButton = "EN COURS..."
-            
             axios.post(this.VUE_APP_URL + "login", this.login)
               .then(res => {
-                console.log(res);
-
                 if (res.data.status !== "error") {
+                  this.$store.dispatch('getToken', res.data)
                   this.loading = false;
                   this.messageButton = "CONNECTÉ";
                   this.alert.type = "success";

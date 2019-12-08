@@ -31,6 +31,23 @@ Vue.use(BootstrapVue);
 Vue.use(ElementUI, { locale });
 Vue.use(require('vue-moment'));
 
+const ifNotAuthenticated = (to, from, next) => {
+  if (!store.getters.loggedIn) {
+    next('/')
+    store.commit('showLoginForm');
+    return
+  }
+  next('/')
+}
+
+const ifAuthenticated = (to, from, next) => {
+  if (store.getters.loggedIn) {
+    next()
+    return
+  }
+  next('/')
+  store.commit('showLoginForm');
+}
 
 const routes = [
   { 
@@ -45,13 +62,23 @@ const routes = [
   {
     path: '/objets/:id',
     name: 'Item',
-    component: Item
+    component: Item,
+    beforeEnter: ifNotAuthenticated
   },
   { path: '/jai-trouve', 
-    component: IFound
+    component: IFound,
+    beforeEnter: ifAuthenticated
   },
   { path: '/jai-perdu', 
-    component: ILost
+    component: ILost,
+    beforeEnter: ifAuthenticated
+    // beforeEnter: (to, from, next) => {
+    //   if(store.getters.loggedIn) {
+    //     next()
+    //   }else {
+    //     store.commit('showLoginForm');
+    //   }
+    // }
   },
   { path: '/login', 
     component: Login
