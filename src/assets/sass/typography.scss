@@ -3,6 +3,17 @@
 * {
     font-family: 'Open Sans', 'Avenir', Helvetica, sans-serif;
 }
+//Font Sizes
+$TitleSize: 1.2rem;
+$TitleAltSize: 1.5rem;
+$subtitle: .85rem;
+$baseline: .8rem;
+$paragraphSize: .95rem;
+$paragraphFW: 300;
+
+// Colors
+$grayLight: #b5b5b5;
+
 
 
 .title, .subtitle {
@@ -20,15 +31,25 @@
     }
 }
 .title {
-    font-size: 1.2rem;
+    font-size: $TitleSize;
     text-transform: uppercase;
     &:after {
         left: calc(25%);
     }
 }
 
+.title--alt {
+    font-size: $TitleAltSize;
+    margin-bottom: 0;
+}
+
+.baseline {
+    color: $grayLight;
+    font-size: $baseline;
+}
+
 .subtitle {
-    font-size: .85rem;
+    font-size: $subtitle;
     font-weight: 600;
 }
 .el-card {
@@ -36,6 +57,6 @@
 }
 
 .form-title {
-    font-size: 1.2rem;
+    font-size: $TitleSize;
     margin-bottom: 1rem;
 }

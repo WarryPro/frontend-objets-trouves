@@ -11,12 +11,19 @@ export default new Vuex.Store({
         loginVisible: false,
         user: JSON.parse(localStorage.getItem('user')) || null,
         token: localStorage.getItem('getToken') || null,
-        logoutVisible: false
+        logoutVisible: false,
+
+        // props pour les items
+        item: Object, // Item seleccionné par son item (affiché sur la page objet/:id)
+            
     },
 
     getters: {
         loggedIn(state) {
             return state.token !== null;
+        },
+        getCurrentItem(state) {
+            return state.item !== null;
         }
     },
 

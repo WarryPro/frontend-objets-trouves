@@ -45,3 +45,20 @@
     }
 
 }
+
+.page-single-item {
+    .single-item {
+        margin-bottom: 2rem;
+        margin-top: 2rem;
+
+        &__description {
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            p {
+                font-weight: $paragraphFW;
+                font-size: $paragraphSize;
+                color: var(--gray);
+            }
+        }
+    }
+}

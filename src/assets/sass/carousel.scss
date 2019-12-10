@@ -1,0 +1,11 @@
+.el-carousel {
+    box-shadow: 0 5px 10px 0 var(--light);
+}
+.el-carousel__container {
+    height: 40vh;
+    margin-top: 1rem;
+
+    @media screen and (max-width: 550px){
+        height: 30vh;
+    }
+}

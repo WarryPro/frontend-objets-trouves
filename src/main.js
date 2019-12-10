@@ -12,6 +12,9 @@ import locale from 'element-ui/lib/locale/lang/fr'
 import 'element-ui/lib/theme-chalk/index.css';
 import './assets/sass/app.scss';
 
+// Mediaqueries
+import VueMq from 'vue-mq';
+
 
 //ROUTES 
 import LastItems from './components/LastItemsComponent';
@@ -30,15 +33,16 @@ Vue.use(VueRouter);
 Vue.use(BootstrapVue);
 Vue.use(ElementUI, { locale });
 Vue.use(require('vue-moment'));
-
-const ifNotAuthenticated = (to, from, next) => {
-  if (!store.getters.loggedIn) {
-    next('/')
-    store.commit('showLoginForm');
-    return
+Vue.use(VueMq, {
+  breakpoints: {
+    mobile: 550,
+    tablet: 900,
+    laptop: 1250,
+    desktop: Infinity,
   }
-  next('/')
-}
+})
+
+
 
 const ifAuthenticated = (to, from, next) => {
   if (store.getters.loggedIn) {
@@ -62,8 +66,7 @@ const routes = [
   {
     path: '/objets/:id',
     name: 'Item',
-    component: Item,
-    beforeEnter: ifNotAuthenticated
+    component: Item
   },
   { path: '/jai-trouve', 
     component: IFound,
