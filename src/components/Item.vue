@@ -30,8 +30,14 @@
 
                 <!-- Formulaire de contact -->
                 <!-- item.author.email !== $store.state.user.email -->
-                <b-col sm="12" md="4">
-                    Formulaire
+                <b-col sm="12" md="4" v-if="$store.getters.loggedIn && item.author.email !== $store.state.user.email">
+                    <FormItemContact></FormItemContact>
+                </b-col>
+                <b-col sm="12" md="4" v-else-if="$store.getters.loggedIn && item.author.email === $store.state.user.email">
+                    éditer l'objet
+                </b-col>
+                <b-col sm="12" md="4" v-else>
+                    <Login></Login>
                 </b-col>
             </b-row>
 
@@ -44,11 +50,17 @@
     import axios from 'axios';
     import moment from "moment";
     import { Global } from "../../Global";
+
     import CarouselItem from './CarouselItem';
+    import FormItemContact from './FormItemContact';
+    import Login from './Login';
+
     export default {
         name: 'Item',
         components: {
-            'CarouselItem': CarouselItem
+            'CarouselItem': CarouselItem,
+            'Login': Login,
+            'FormItemContact': FormItemContact,
         },
         mounted() {
             this.getItem();
