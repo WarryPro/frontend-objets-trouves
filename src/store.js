@@ -22,8 +22,8 @@ export default new Vuex.Store({
         loggedIn(state) {
             return state.token !== null;
         },
-        getCurrentItem(state) {
-            return state.item !== null;
+        currentItem(state) {
+            return state.item;
         }
     },
 
@@ -48,6 +48,9 @@ export default new Vuex.Store({
             state.token = null;
             state.user = null;
             state.logoutVisible = false
+        },
+        getCurrentItem(state, data) {
+            state.item = data;
         }
     },
 
