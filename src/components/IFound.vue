@@ -1,12 +1,17 @@
 <template>
     <div>
-        J'ai trouvé un objet
+        <FormItemFound></FormItemFound>
     </div>
 </template>
 
 <script>
+    import FormItemFound from './FormItemFound';
+
     export default {
-        name: 'IFound'
+        name: 'IFound',
+        components: {
+            'FormItemFound': FormItemFound,
+        }
     }
 </script>
 
