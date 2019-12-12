@@ -1,7 +1,7 @@
 <template>
     <div>
         <el-form :model="formItemContact" status-icon :rules="rules" ref="formItemContact" class="form-user">
-            <h4>Formulaire de contact</h4>
+            <h4>Je suis le propriétaire</h4>
             <p>Une référence vous sera demandée pour que la personne qui a trouvé votre objet puisse verifier que vous êtes le propriétaire <i class="el-icon-warning"></i></p>
 
             <el-form-item prop="email">
@@ -19,6 +19,7 @@
 
             <el-form-item class="form-submit">
                 <el-button type="primary" :loading="loading" @click="submitForm('formItemContact')">{{messageButton}} <i class="el-icon-arrow-right"></i></el-button>
+                <!-- <el-button type="primary" :loading="loading" @click="submitForm('formItemContact')">{{messageButton}} <i class="el-icon-arrow-right"></i></el-button> -->
             </el-form-item>
         </el-form>
     </div>
@@ -41,11 +42,7 @@
                 email: "",
                 desc: "",
                 ref: "",
-                
-            },
-            alert: {
-                type: '',
-                title: '',
+                author: store.getters.currentItem.author.email
             },
 
             rules: {
@@ -94,27 +91,25 @@
           this.loading = true;
           this.messageButton = "EN COURS..."
           setTimeout(() => {
-            axios.post(this.VUE_APP_URL + "message", this.formItemContact)
+            axios.post(this.VUE_APP_URL + "item-contact", this.formItemContact)
               .then(res => {
                 if (res.data.status !== "error") {
-                  this.$store.dispatch('getToken', res.data)
                   this.loading = false;
-                  this.messageButton = "CONNECTÉ";
-                  this.alert.type = "success";
-                  this.alert.title = res.data.message;
-                  this.resetForm(formName);
-                  this.close();
-                  // hide form login
-                  setTimeout(() => {
-                      store.state.loginVisible = false
-                  }, 3000)
+                  this.messageButton = "ENVOYER LE MESSAGE";
+                  this.resetForm(formName); // Clean le form 
+                  //Flash message 
+                  this.$message({
+                    type: 'success',
+                    message: "Votre message a été envoyé avec succès :)"
+                  });
 
                 }else {
                   this.loading = false;
-                  this.messageButton = "SE CONNECTER"
-                  this.alert.type = "error";
-                  this.alert.title = res.data.message;
-                  this.close();
+                  this.messageButton = "ENVOYER LE MESSAGE";
+                  this.$message({
+                    type: 'warning',
+                    message: res.data.message
+                  });  
                 }
               })
               .catch(error => {
@@ -123,7 +118,12 @@
 
           },3000)
         } else {
-          console.log("error submit!!");
+
+          this.$message({
+            type: 'error',
+            message: "Il faut remplir le formulaire"
+          });
+
           return false;
         }
       });
@@ -131,12 +131,6 @@
 
     resetForm(formName) {
       this.$refs[formName].resetFields();
-    },
-    close() {
-      setTimeout(() => {
-        this.alert.type = "";
-        this.alert.title = "";
-      },4000)
     }
   }
     }

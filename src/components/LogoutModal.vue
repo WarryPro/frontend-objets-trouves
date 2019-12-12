@@ -22,10 +22,10 @@
             });
 
             }).catch(() => {
-            this.$message({
-                type: 'success',
-                message: 'Vous êtes tojours en ligne :)'
-            });          
+                this.$message({
+                    type: 'success',
+                    message: 'Vous êtes tojours en ligne :)'
+                });          
             });
         }
         }

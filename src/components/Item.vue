@@ -15,7 +15,7 @@
                     </span>
                 </b-col>
                 <!-- Content block -->
-                <b-col sm="12" md="8" class="single-item__description">
+                <b-col sm="12" md="6" lg="8" class="single-item__description">
                     <p v-text="item.description"></p>
                     <div class="author-info">
                         <span class="author" v-text="item.author.firstname"></span>
@@ -30,13 +30,13 @@
 
                 <!-- Formulaire de contact -->
                 <!-- item.author.email !== $store.state.user.email -->
-                <b-col sm="12" md="4" v-if="$store.getters.loggedIn && item.author.email !== $store.state.user.email">
+                <b-col sm="12" md="6" lg="4" v-if="$store.getters.loggedIn && item.author.email !== $store.state.user.email">
                     <FormItemContact></FormItemContact>
                 </b-col>
-                <b-col sm="12" md="4" v-else-if="$store.getters.loggedIn && item.author.email === $store.state.user.email">
+                <b-col sm="12" md="6" lg="4" v-else-if="$store.getters.loggedIn && item.author.email === $store.state.user.email">
                     éditer l'objet
                 </b-col>
-                <b-col sm="12" md="4" v-else>
+                <b-col sm="12" md="6" lg="4" v-else>
                     <Login></Login>
                 </b-col>
             </b-row>
@@ -79,6 +79,7 @@
                 .then(response => {
                     if(response.status === 200) {
                         this.item = response.data.data;
+                        this.$store.commit('getCurrentItem', response.data.data);
                     }
                 })
                 .catch(error => {
