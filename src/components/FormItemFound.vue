@@ -1,5 +1,6 @@
 <template>
     <b-container>
+        <!-- <input type="file" id="file" ref="file" v-on:change="handleFileUpload()"/> -->
         <el-form :model="itemFound" :rules="rules" ref="itemFound" class="form-item-found">
             <h4>J'ai trouvé un objet</h4>
             <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Itaque debitis, dignissimos, repellendus reprehenderit. Soluta, quas impedit?</p>
@@ -9,7 +10,7 @@
             </el-form-item>
 
             <!-- Calendar -->
-            <el-form-item prop="itemFound.date">
+            <el-form-item>
                 <el-date-picker
                     v-model="itemFound.date"
                     type="date"
@@ -24,7 +25,7 @@
                 <el-input v-model="itemFound.city" placeholder="Lieu ou ville où vous avez trouvé l'objet" prefix-icon="el-icon-location"></el-input>
             </el-form-item>
 
-            <el-form-item prop="itemFound.category">
+            <el-form-item prop="category">
                 <el-select v-model="itemFound.category" placeholder="Séléctionnez une catégorie">
                     <el-option
                     v-for="category in categories"
@@ -36,18 +37,24 @@
             </el-form-item>
 
             <el-form-item prop="description">
-                <el-input type="textarea" v-model="itemFound.description" placeholder="Ajoutez une description de l'objet trouvé"></el-input>
+                <el-input type="textarea" v-model="itemFound.description" placeholder="Ajoutez une description de l'objet trouvé (couleur, type d'objet, etc)"></el-input>
             </el-form-item>
-
+            
             <el-upload
-                class="upload-demo"
-                drag
-                action="https://jsonplaceholder.typicode.com/posts/"
-                multiple>
-                <i class="el-icon-upload"></i>
-                <div class="el-upload__text">Glissez votre image ici ou <em>faites click pour la charger</em></div>
-                <div slot="tip" class="el-upload__tip">Seulement fichier en format jpg/png avec une taille plus petite que 5Mo</div>
+                    class="upload-demo"
+                    drag
+                    :action="VUE_APP_URL + 'upload'"
+                    ref="upload"
+                    :auto-upload="false"
+                    multiple>
+                    <i class="el-icon-upload"></i>
+                    <div class="el-upload__text">Glissez votre image ici ou <em>faites click pour la charger</em></div>
+                    <div slot="tip" class="el-upload__tip">Seulement fichier en format jpg/png avec une taille plus petite que 5Mo</div>
             </el-upload>
+
+            <el-form-item class="form-submit">
+                <el-button type="primary" :loading="loading" @click="submitForm('itemFound')">{{messageButton}}</el-button>
+            </el-form-item>
         </el-form>
     </b-container>
 </template>
@@ -55,7 +62,7 @@
 <script>
     import { Global } from "../../Global";
     import axios from "axios";
-    // import store from '../store';
+    import store from '../store';
 
     export default {
         name: 'FormItemFound',
@@ -67,6 +74,8 @@
         data() {
             return {
                 VUE_APP_URL: Global.VUE_APP_URL,
+                loading: false,
+                messageButton: "PUBLIER L'OBJET",
                 itemFound: {
                     title: '',
                     city: '',
@@ -74,24 +83,11 @@
                     description: '',
                     category: '',
                     type: '',
-                    image: '',
                     status: 'test'
                 },
                 categories: [
-                    {   value: 'Option1',
-                        label: 'Option1'
-                    }, 
-                    {   value: 'Option2',
-                        label: 'Option2'
-                    }, 
-                    {   value: 'Option3',
-                        label: 'Option3'
-                    }, 
-                    {   value: 'Option4',
-                        label: 'Option4'
-                    }, 
-                    {   value: 'Option5',
-                        label: 'Option5'
+                    {   value: '',
+                        label: ''
                     }
                 ],
 
@@ -183,7 +179,6 @@
                         trigger: "blur",
                     }]
                 }
-
             }
         },
 
@@ -191,11 +186,77 @@
             getCategories() {
                 axios.get(this.VUE_APP_URL+"categories")
                 .then(response => {
-                    console.log(response);
+                    response.data.forEach(resCategory => {
+                        this.categories.forEach(element => {
+                            element.value = resCategory.id
+                            element.label = resCategory.name
+                        });
+                    });
                 })
                 .catch(error => {
                     console.log(error);
                 })
+            },
+            
+            submitForm(formName) {
+                this.$refs[formName].validate(valid => {
+                    if (valid) {
+                    this.loading = true;
+                    this.messageButton = "EN COURS..."
+                    
+                    setTimeout(() => {
+                        axios.post(this.VUE_APP_URL + "items/new", this.itemFound, {
+                            headers: {
+                                "Authorization": store.getters.userToken
+                            }
+                        })
+                        .then(res => {
+                            if (res.data.status !== "error") {
+                                setTimeout(() => {
+                                    this.submitUpload();
+                                    this.loading = false;
+                                    this.resetForm(formName);
+                                    this.messageButton = "PUBLIER L'OBJET"
+                                    //Flash message 
+                                    this.$message({
+                                        type: 'success',
+                                        message: "L'objet a été publié avec succès :)"
+                                    });
+
+                                }, 2000)
+
+                            }else {
+                                this.loading = false;
+                                this.messageButton = "PUBLIER L'OBJET"
+                                this.$message({
+                                    type: 'error',
+                                    message: res.data.message
+                                }); 
+                            }
+                        })
+                        .catch(error => {
+                            console.log(error);
+                        });
+
+                    },2000)
+                    } else {
+                        this.$message({
+                            type: 'error',
+                            message: "Il faut remplir tous les champs"
+                        }); 
+                        return false;
+                    }
+                });
+            },
+
+            
+            submitUpload() {
+                this.$refs.upload.submit();
+                this.$refs.upload.clearFiles();
+            },
+
+            resetForm(formName) {
+                this.$refs[formName].resetFields();
             }
         }
     }

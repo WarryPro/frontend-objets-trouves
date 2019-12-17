@@ -6,7 +6,11 @@
         <h2 class="title">Derniers objets trouvés et rapportés</h2>
         <b-container class="items-container">
             <el-card :body-style="{ padding: '0px' }" v-for="item in items.items" :key="item.id">
-              <img
+              <img v-if="item.images[0]"
+                :src="VUE_APP_URL + 'uploads/' + item.images[0]"
+                class="image"
+              />
+              <img v-else
                 src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
                 class="image"
               />

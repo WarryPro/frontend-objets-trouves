@@ -1,6 +1,8 @@
 <template>
     <div>
+        <el-divider></el-divider>
         <FormItemFound></FormItemFound>
+        <el-divider></el-divider>
     </div>
 </template>
 
