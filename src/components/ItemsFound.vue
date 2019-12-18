@@ -1,5 +1,6 @@
 <template>
   <div>
+    <el-divider></el-divider>
     <div class="page-items">
       <Filters></Filters>
       <div>
@@ -9,15 +10,20 @@
             :defaultItems="items.items"></Search>
         <b-container class="items-container">
           <el-card :body-style="{ padding: '0px' }" v-for="item in items.items" :key="item.id">
-            <img
-              src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
-              class="image"
-            />
+            <img v-if="item.images[0]"
+                :src="VUE_APP_URL + 'uploads/' + item.images[0]"
+                class="image"
+              />
+              <img v-else
+                src="https://images.pexels.com/photos/356079/pexels-photo-356079.jpeg"
+                class="image"
+              />
             <div style="padding: 20px;">
               <h3 class="card__title">{{item.title}}</h3>
               <div class="bottom">
                 <div class="author">
-                  <span class="author__label">Trouvé par</span>
+                  <span class="author__label" v-if="item.type == 0">Trouvé par</span>
+                  <span class="author__label" v-else>Propriétaire</span>
                   <span class="author__nom">{{item.author.firstname}} {{item.author.lastname}}</span>
                 </div>
                 <div class="category">
@@ -25,7 +31,8 @@
                   <span class="category__nom">{{item.category}}</span>
                 </div>
                 <div class="date">
-                  <span class="date__label">Trouvé le</span>
+                  <span class="date__label" v-if="item.type == 0">Trouvé le</span>
+                  <span class="date__label" v-else>Perdu le</span>
                   <span class="date__created">{{ item.created.date | dateFilter }}</span>
                 </div>
                 <b-button
@@ -38,6 +45,7 @@
         </b-container>
       </div>
     </div>
+    <el-divider></el-divider>
   </div>
 </template>
 

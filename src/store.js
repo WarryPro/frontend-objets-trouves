@@ -27,6 +27,9 @@ export default new Vuex.Store({
         },
         currentItem(state) {
             return state.item;
+        }, 
+        isAdmin(state) {
+            return state.user.role === 'admin';
         }
     },
 
@@ -51,6 +54,8 @@ export default new Vuex.Store({
             state.token = null;
             state.user = null;
             state.logoutVisible = false
+            localStorage.removeItem('getToken');
+            localStorage.removeItem('user');
         },
         getCurrentItem(state, data) {
             state.item = data;

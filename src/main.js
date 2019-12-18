@@ -26,6 +26,9 @@ import Signup from './components/Signup'
 import Item from './components/Item'
 import HomeSearchResults from './components/HomeSearchResults'
 
+// ADMIN ROUTES
+import AdminDashboard from './components/admin/Dashboard'
+
 Vue.config.productionTip = false
 
 
@@ -93,6 +96,20 @@ const routes = [
     name: 'search',
     path: '/search',
     component: HomeSearchResults
+  },
+
+  //ADMIN ROUTES
+  {
+    name: 'Admin',
+    path: '/admin',
+    component: AdminDashboard,
+    beforeEnter: (to, from, next) => {
+      if(store.getters.loggedIn && store.getters.isAdmin) {
+            next()
+          }else {
+            router.push('/');
+          }
+    }
   }
 ];
 

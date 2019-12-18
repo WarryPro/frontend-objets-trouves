@@ -9,23 +9,38 @@
                 <!-- Title block -->
                 <b-col sm="12">
                     <h1 class="title--alt" v-text="item.title"></h1>
-                    <span class="baseline">
+                    <span class="baseline" v-if="item.type == 0">
                         <i class="el-icon-time"></i> Trouvé {{item.created.date | dateFR}} | 
+                        <i class="el-icon-location-information"></i> à {{item.city }}
+                    </span>
+                    <span class="baseline" v-else>
+                        <i class="el-icon-time"></i> Perdu {{item.created.date | dateFR}} | 
                         <i class="el-icon-location-information"></i> à {{item.city }}
                     </span>
                 </b-col>
                 <!-- Content block -->
                 <b-col sm="12" md="6" lg="8" class="single-item__description">
+                    <!-- Content -->
                     <p v-text="item.description"></p>
+
+                    <!-- Images List -->
+                    <ImageList></ImageList>
+
+                    <!-- Author -->
                     <div class="author-info">
                         <span class="author" v-text="item.author.firstname"></span>
                         <span class="baseline">
                             <i class="el-icon-time"></i> Publié {{item.created.date | agoDate}}
                         </span>
                     </div>
+                    <!-- Category tags -->
                     <div class="categories">
                         <el-tag type="info" v-text="item.category"></el-tag>
                     </div>
+                    <div class="actions" v-if="$store.getters.loggedIn && item.author.email === $store.state.user.email">
+                        <ActionButtons></ActionButtons>
+                    </div>
+                    <el-divider></el-divider>
                 </b-col>
 
                 <!-- Formulaire de contact -->
@@ -34,7 +49,7 @@
                     <FormItemContact></FormItemContact>
                 </b-col>
                 <b-col sm="12" md="6" lg="4" v-else-if="$store.getters.loggedIn && item.author.email === $store.state.user.email">
-                    éditer l'objet
+                    <FormItemEdit></FormItemEdit>
                 </b-col>
                 <b-col sm="12" md="6" lg="4" v-else>
                     <Login></Login>
@@ -52,15 +67,21 @@
     import { Global } from "../../Global";
 
     import CarouselItem from './CarouselItem';
-    import FormItemContact from './FormItemContact';
     import Login from './Login';
+    import ImageList from './ImageListPreview';
+    import FormItemContact from './FormItemContact';
+    import FormItemEdit from './FormItemEdit';
+    import ActionButtons from './ActionButtons';
 
     export default {
         name: 'Item',
         components: {
-            'CarouselItem': CarouselItem,
             'Login': Login,
+            'CarouselItem': CarouselItem,
             'FormItemContact': FormItemContact,
+            'FormItemEdit': FormItemEdit,
+            'ImageList': ImageList,
+            'ActionButtons': ActionButtons
         },
         mounted() {
             this.getItem();
@@ -110,5 +131,9 @@
         .author {
             margin-bottom: 0;
         }
+    }
+    .actions {
+        display: flex;
+        justify-content: flex-end;
     }
 </style>

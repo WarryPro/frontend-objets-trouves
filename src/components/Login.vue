@@ -23,7 +23,12 @@
       </el-form-item>
 
       <el-form-item class="form-submit">
-        <el-button type="primary" :loading="loading" @click="submitForm('login')">{{messageButton}}</el-button>
+        <el-button 
+          type="primary" 
+          :loading="loading" 
+          @click="submitForm('login')" 
+          v-loading.fullscreen.lock="fullscreenLoading">{{messageButton}}
+        </el-button>
       </el-form-item>
     </el-form>
   </b-container>
@@ -46,7 +51,7 @@ export default {
     
     return {
       VUE_APP_URL: Global.VUE_APP_URL,
-
+      fullscreenLoading: false,
       loading: false,
       messageButton: "SE CONNECTER",
       login: {
@@ -107,7 +112,8 @@ export default {
                   // hide form login
                   setTimeout(() => {
                       store.state.loginVisible = false
-                  }, 3000)
+                  }, 1000);
+                  this.openFullScreen();
 
                 }else {
                   this.loading = false;
@@ -115,13 +121,14 @@ export default {
                   this.alert.type = "error";
                   this.alert.title = res.data.message;
                   this.close();
+                  this.openFullScreen();
                 }
               })
               .catch(error => {
                 console.log(error);
               });
 
-          },3000)
+          },2000)
         } else {
           console.log("error submit!!");
           return false;
@@ -132,6 +139,14 @@ export default {
     resetForm(formName) {
       this.$refs[formName].resetFields();
     },
+
+    openFullScreen() {
+        this.fullscreenLoading = true;
+        setTimeout(() => {
+          this.fullscreenLoading = false;
+        }, 2000);
+    },
+
     close() {
       setTimeout(() => {
         this.alert.type = "";

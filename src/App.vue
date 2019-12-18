@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <HeaderComponent></HeaderComponent>
-
     <transition name="fade" mode="out-in">
       <router-view></router-view>
     </transition>

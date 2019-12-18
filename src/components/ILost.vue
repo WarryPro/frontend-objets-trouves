@@ -1,12 +1,18 @@
 <template>
     <div>
-        J'ai perdu un objet
+        <el-divider></el-divider>
+        <FormItemLost></FormItemLost>
+        <el-divider></el-divider>
     </div>
 </template>
 
 <script>
+    import FormItemLost from './FormItemLost';
     export default {
-        name: 'ILost'
+        name: 'ILost',
+        components: {
+            'FormItemLost': FormItemLost,
+        }
     }
 </script>
 

@@ -1,5 +1,6 @@
 <template>
   <div>
+    <el-divider></el-divider>
     <div class="page-items">
       <Filters></Filters>
       <div>
@@ -18,7 +19,8 @@
                 <h3 class="card__title">{{item.title}}</h3>
                 <div class="bottom">
                   <div class="author">
-                    <span class="author__label">Trouvé par</span>
+                    <span class="author__label" v-if="item.type == 0">Trouvé par</span>
+                    <span class="author__label" v-else>Propriétaire</span>
                     <span class="author__nom">{{item.author.firstname}} {{item.author.lastname}}</span>
                   </div>
                   <div class="category">
@@ -26,7 +28,8 @@
                     <span class="category__nom">{{item.category}}</span>
                   </div>
                   <div class="date">
-                    <span class="date__label">Trouvé le</span>
+                    <span class="date__label" v-if="item.type == 0">Trouvé le</span>
+                    <span class="date__label" v-else>Perdu le</span>
                     <span class="date__created">{{ item.created.date | dateFilter }}</span>
                   </div>
                   <b-button variant="dark" :to="{name: 'Item', params: {id : item.id}}">Je suis le propiétaire</b-button>
@@ -36,6 +39,7 @@
         </b-container>
       </div>
     </div>
+    <el-divider></el-divider>
   </div>
 </template>
 

@@ -7,23 +7,34 @@
 
     <el-carousel v-else :interval="4000" arrow="always" type="card">
         <el-carousel-item v-for="image in images" :key="image">
-            <img :src="image" alt="image">
+            <img :src="VUE_APP_URL + 'uploads/' + image" alt="image" v-if="$store.getters.currentItem.images.length > 0">
+            <img :src="image" alt="image" v-else>
         </el-carousel-item>
     </el-carousel>
 </template>
 
 <script>
+import store from '../store';
+import {Global} from '../../Global'
 export default {
     name: 'CarouselItem', 
+    mounted() {
+        if(store.getters.currentItem.images.length > 0) {
+            this.images = store.getters.currentItem.images;
+        }
+    },
 
     data() {
         return {
+            VUE_APP_URL: Global.VUE_APP_URL,
             typeCarousel: 'card',
-            images: [
-                'https://images.pexels.com/photos/346793/pexels-photo-346793.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260', 
-                'https://images.pexels.com/photos/346805/pexels-photo-346805.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
-                'https://images.pexels.com/photos/236915/pexels-photo-236915.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
-                'https://images.pexels.com/photos/2095953/pexels-photo-2095953.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260']
+            images: []
+            
+            // images: [
+            //     'https://images.pexels.com/photos/346793/pexels-photo-346793.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260', 
+            //     'https://images.pexels.com/photos/346805/pexels-photo-346805.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
+            //     'https://images.pexels.com/photos/236915/pexels-photo-236915.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
+            //     'https://images.pexels.com/photos/2095953/pexels-photo-2095953.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260']
         }
     }
 }

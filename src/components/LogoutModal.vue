@@ -15,7 +15,9 @@
             }).then(() => {
 
             this.$store.commit('logout');
-            this.$router.push('/');
+            if(this.$route.path !== '/') {
+                this.$router.push('/');
+            }
             this.$message({
                 type: 'info',
                 message: "Vous êtes maintenant hors ligne"
