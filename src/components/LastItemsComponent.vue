@@ -37,6 +37,11 @@
               </div>
             </el-card>
         </b-container>
+        <!-- <el-pagination
+          layout="prev, pager, next"
+          :background="true"
+          :total="50">
+        </el-pagination> -->
       </div>
     </div>
     <el-divider></el-divider>
