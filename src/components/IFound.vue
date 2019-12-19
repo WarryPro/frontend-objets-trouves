@@ -13,6 +13,21 @@
         name: 'IFound',
         components: {
             'FormItemFound': FormItemFound,
+        },
+        mounted() {
+            this.openFullScreen();
+        },
+        methods: {
+            openFullScreen() {
+                const loading = this.$loading({
+                lock: true,
+                spinner: 'el-icon-loading',
+                background: 'white'
+                });
+                setTimeout(() => {
+                    loading.close();
+                }, 1000);
+            }
         }
     }
 </script>

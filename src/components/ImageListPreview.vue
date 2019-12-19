@@ -2,8 +2,8 @@
     <div class="demo-image__preview" v-if="url !== ''">
         <el-image
             style="width: 150px; height: 150px"
-            :src="url" 
-            alt="toto"
+            :src="url"
+            fit="cover"
             :preview-src-list="srcList">
         </el-image>
     </div>

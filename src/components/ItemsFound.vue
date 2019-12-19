@@ -43,6 +43,14 @@
             </div>
           </el-card>
         </b-container>
+        <el-pagination
+          layout="prev, pager, next"
+          :background="true"
+          :hide-on-single-page="true"
+          @current-change="getItems"
+          :page-size="items.items_per_page"
+          :total="items.total_items_count">
+        </el-pagination>
       </div>
     </div>
     <el-divider></el-divider>
@@ -58,13 +66,14 @@
     import Filters from './Filters';
     import Search from './search';
 
-    export default {
-
+  export default {
+    
     name: "ItemsFound",
 
     mounted() {
-        this.getItems();
-        moment.locale('fr');
+      moment.locale('fr');
+      this.openFullScreen();
+      this.getItems();
     },
     components: {
         'Filters' : Filters,
@@ -86,11 +95,12 @@
     },
 
     methods: {
-        getItems() {
-          axios.get(this.VUE_APP_URL + "items").then(res => {
+        getItems(page = 1) {
+          axios.get(this.VUE_APP_URL + "items/?page="+page).then(res => {
               if (res.data.status === "success") {
               this.items = res.data;
               this.defaultItems = res.data;
+              this.currentPage = this.items.current_page;
               }
           }).catch((error) => {
             console.log(error);
@@ -100,13 +110,25 @@
         querySearch(items) {
           this.items.items = items;
         },
+
         getState(state) {
           if(state === " " || state === "") {
             this.getItems();
           }
+        },
+
+        openFullScreen() {
+          const loading = this.$loading({
+            lock: true,
+            spinner: 'el-icon-loading',
+            background: 'white'
+          });
+          setTimeout(() => {
+            loading.close();
+          }, 1000);
         }
     }
-    };
+  };
 </script>
 
 <style lang="scss" scoped>

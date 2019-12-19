@@ -84,6 +84,7 @@
             'ActionButtons': ActionButtons
         },
         mounted() {
+            this.openFullScreen();
             this.getItem();
             moment.locale('fr');
         },
@@ -98,24 +99,44 @@
                 var id = (this.$route.params.id)?this.$route.params.id: null;
                 axios.get(this.VUE_APP_URL + 'items/' +id)
                 .then(response => {
-                    if(response.status === 200) {
+                    if(response.data.status !== "error") {
                         this.item = response.data.data;
                         this.$store.commit('getCurrentItem', response.data.data);
+                    }else {
+                        this.openFullScreen()
+                        this.open();
+                        this.$router.push('/');
                     }
                 })
                 .catch(error => {
                     console.log(error)
                 })
+            },
+
+            openFullScreen() {
+                const loading = this.$loading({
+                    lock: true,
+                    spinner: 'el-icon-loading',
+                    background: 'white'
+                });
+                setTimeout(() => {
+                    loading.close();
+                }, 2000);
+            },
+            
+            open() {
+                this.$message.error("Ouups, cet objet n'existe pas.");
             }
         },
+
         filters: {
-        agoDate: function(value) {
-          return value ? moment(value).fromNow() : "";
-        },
-        dateFR: function(value) {
-          return value ? moment(value).format("DD MMMM YYYY") : "";
+            agoDate: function(value) {
+                return value ? moment(value).fromNow() : "";
+            },
+                dateFR: function(value) {
+            return value ? moment(value).format("DD MMMM YYYY") : "";
+            }
         }
-    }
     }
 </script>
 
