@@ -111,7 +111,10 @@ export default {
                   this.close();
                   // hide form login
                   setTimeout(() => {
-                      store.state.loginVisible = false
+                      store.state.loginVisible = false;
+                      if(res.data.data.role === 'admin') {
+                        this.$router.push('/admin');
+                      }
                   }, 1000);
                   this.openFullScreen();
 

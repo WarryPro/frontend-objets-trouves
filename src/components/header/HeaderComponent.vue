@@ -13,16 +13,14 @@
                         <b-nav-item href="#" :to="{path: '/objets'}" active-class="active">Objets trouvés</b-nav-item>
                         <b-nav-item href="#" :to="{path: '/jai-trouve'}" active-class="active">J'ai trouvé un objet</b-nav-item>
                         <b-nav-item href="#" :to="{path: '/jai-perdu'}" active-class="active">J'ai perdu un objet</b-nav-item>
+                        <b-nav-item href="#" v-if="user.role === 'admin' && user !== null" :to="{path: '/admin'}" active-class="active">Dashboard</b-nav-item>
                     </b-navbar-nav>
 
                     <!-- Right aligned nav items -->
                     <b-navbar-nav class="ml-auto">
-                        <!-- <b-nav-item href="#" :to="{path: '/login'}" active-class="active">Se connecter</b-nav-item>
-                        <b-button variant="dark" :to="{path: 'signup'}" active-class="active">S'enregistrer</b-button> -->
                         <b-nav-item href="#" @click="$store.commit('showLoginForm')" active-class="active" v-if="!$store.getters.loggedIn">Se connecter</b-nav-item>
                         <b-button variant="dark" @click="$store.commit('showSignupForm')" active-class="active" v-if="!$store.getters.loggedIn">S'enregistrer</b-button>
                         <Logout v-if="$store.getters.loggedIn"></Logout>
-                        <!-- <b-button variant="dark" @click="$store.commit('logout')" active-class="active" v-if="$store.getters.loggedIn" :to="{path: '/'}">Se déconnecter</b-button> -->
                     </b-navbar-nav>
                 </b-collapse>
             </b-container>
@@ -41,6 +39,14 @@
         components: {
             'BannerComponent' : BannerComponent,
             'Logout' : Logout
+        },
+        mounted() {
+            this.user = (JSON.parse(localStorage.getItem('user')) !== null) ? JSON.parse(localStorage.getItem('user')) : ''
+        },
+        data() {
+            return {
+                user: ''
+            }
         }
     }
 </script>

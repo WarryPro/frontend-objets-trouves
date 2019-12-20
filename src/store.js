@@ -29,7 +29,9 @@ export default new Vuex.Store({
             return state.item;
         }, 
         isAdmin(state) {
-            return state.user.role === 'admin';
+            if(state.user !== null) {
+                return state.user.role === 'admin';
+            }
         }
     },
 

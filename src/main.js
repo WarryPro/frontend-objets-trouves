@@ -104,11 +104,12 @@ const routes = [
     path: '/admin',
     component: AdminDashboard,
     beforeEnter: (to, from, next) => {
-      if(store.getters.loggedIn && store.getters.isAdmin) {
-            next()
-          }else {
-            router.push('/');
-          }
+      let user = JSON.parse(localStorage.getItem('user'));
+      if(user !== null && user.role === 'admin') {
+        next()
+      }else {
+        router.push('/');
+      }
     }
   }
 ];
