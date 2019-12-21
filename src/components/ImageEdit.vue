@@ -3,7 +3,7 @@
         <h3>Supprimez ou ajoutez des images</h3>
         <p>Vous pouvez visionner, supprimer ou ajouter rapidement les images</p>
         <el-upload
-            :action="VUE_APP_URL + 'upload'"
+            :action="VUE_APP_URL + 'upload/'+ itemId"
             drag
             list-type="picture-card"
             :on-preview="handlePictureCardPreview"
@@ -28,6 +28,8 @@
         name: 'ImageEdit',
         mounted() {
             this.getItemImages();
+            this.itemId = this.$route.params.id;
+            console.log(this.itemId)
         },
         data() {
             return {
@@ -35,11 +37,13 @@
                 dialogVisible: false,
                 disabled: false,
                 itemImages: [],
+                itemId: ''
             };
         },
         methods: {
             getItemImages() {
                 let currentItemImages = store.getters.currentItem.images;
+                this.itemId = this.$route.params.id;
                 currentItemImages.forEach(image => {
                     Object.assign(image, {url: this.VUE_APP_URL+'uploads/'+ image.name})
                     this.itemImages.push(image)

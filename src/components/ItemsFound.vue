@@ -58,7 +58,7 @@
 </template>
 
 <script>
-  import {Global} from '../../Global'
+    import {Global} from '../../Global'
     // Libraries
     import axios from "axios";
     import moment from "moment";
