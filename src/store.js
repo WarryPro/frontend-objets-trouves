@@ -9,6 +9,7 @@ export default new Vuex.Store({
     state: {
         signupVisible: false,
         loginVisible: false,
+        editActive: false,
         user: JSON.parse(localStorage.getItem('user')) || null,
         token: localStorage.getItem('getToken') || null,
         logoutVisible: false,
@@ -42,6 +43,10 @@ export default new Vuex.Store({
 
         showLoginForm(state) {
             state.loginVisible = true;
+        },
+
+        showEditForm(state) {
+            state.editActive = true;
         },
 
         showLogoutModal(state) {

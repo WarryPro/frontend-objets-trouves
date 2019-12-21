@@ -29,8 +29,9 @@
             
             getImages() {
                 let images = store.getters.currentItem;
+                console.log(images.images)
                 images.images.forEach(image => {
-                    this.srcList.push(this.VUE_APP_URL + 'uploads/'+ image)
+                    this.srcList.push(this.VUE_APP_URL + 'uploads/'+ image.name)
                     this.url = this.srcList[0]
                 }); 
             }

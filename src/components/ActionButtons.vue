@@ -70,7 +70,10 @@
 
             edit() {
                 console.log('edit')
-                this.openFullScreen()
+                this.openFullScreen();
+                setTimeout(() => {
+                    store.commit('showEditForm');
+                }, 500)
             },
 
 
@@ -78,7 +81,7 @@
                 this.fullscreenLoading = true;
                 setTimeout(() => {
                     this.fullscreenLoading = false;
-                }, 2000);
+                }, 1000);
             },
         }
         

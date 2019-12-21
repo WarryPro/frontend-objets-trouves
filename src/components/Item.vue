@@ -19,13 +19,11 @@
                     </span>
                 </b-col>
                 <!-- Content block -->
-                <b-col sm="12" md="6" lg="8" class="single-item__description">
+                <b-col sm="12" lg="8" class="single-item__description">
                     <!-- Content -->
                     <p v-text="item.description"></p>
-
                     <!-- Images List -->
                     <ImageList></ImageList>
-
                     <!-- Author -->
                     <div class="author-info">
                         <span class="author" v-text="item.author.firstname"></span>
@@ -37,10 +35,16 @@
                     <div class="categories">
                         <el-tag type="info" v-text="item.category"></el-tag>
                     </div>
+                    <!-- Action boutons pour editer/supprimer l'objet ou les images -->
                     <div class="actions" v-if="$store.getters.loggedIn && item.author.email === $store.state.user.email">
                         <ActionButtons></ActionButtons>
                     </div>
                     <el-divider></el-divider>
+
+                    <div v-if="$store.getters.loggedIn && item.author.email === $store.state.user.email && $store.state.editActive">
+                        <FormItemEdit></FormItemEdit>
+                        
+                    </div>
                 </b-col>
 
                 <!-- Formulaire de contact -->
@@ -49,7 +53,11 @@
                     <FormItemContact></FormItemContact>
                 </b-col>
                 <b-col sm="12" md="6" lg="4" v-else-if="$store.getters.loggedIn && item.author.email === $store.state.user.email">
-                    <FormItemEdit></FormItemEdit>
+                    <div class="item-images-container">
+                        <div>
+                            <ImageEdit></ImageEdit>
+                        </div>
+                    </div>
                 </b-col>
                 <b-col sm="12" md="6" lg="4" v-else>
                     <Login></Login>
@@ -72,6 +80,7 @@
     import FormItemContact from './FormItemContact';
     import FormItemEdit from './FormItemEdit';
     import ActionButtons from './ActionButtons';
+    import ImageEdit from './ImageEdit';
 
     export default {
         name: 'Item',
@@ -81,7 +90,8 @@
             'FormItemContact': FormItemContact,
             'FormItemEdit': FormItemEdit,
             'ImageList': ImageList,
-            'ActionButtons': ActionButtons
+            'ActionButtons': ActionButtons,
+            'ImageEdit': ImageEdit
         },
         mounted() {
             this.openFullScreen();

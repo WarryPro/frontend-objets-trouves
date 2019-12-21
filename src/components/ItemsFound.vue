@@ -11,7 +11,7 @@
         <b-container class="items-container">
           <el-card :body-style="{ padding: '0px' }" v-for="item in items.items" :key="item.id">
             <img v-if="item.images[0]"
-                :src="VUE_APP_URL + 'uploads/' + item.images[0]"
+                :src="VUE_APP_URL + 'uploads/' + item.images[0].name"
                 class="image"
               />
               <img v-else

@@ -1,13 +1,14 @@
 <template>
     <el-carousel :interval="4000" arrow="always" v-if="$mq  === 'mobile'">
-        <el-carousel-item v-for="image in images" :key="image">
-            <img :src="image" alt="image">
+        <el-carousel-item v-for="image in images" :key="image.id">
+            <img :src="VUE_APP_URL + 'uploads/' + image.name" alt="image" v-if="$store.getters.currentItem.images.length > 0">
+            <img :src="image" alt="image" v-else>
         </el-carousel-item>
     </el-carousel>
 
     <el-carousel v-else :interval="4000" arrow="always" type="card">
-        <el-carousel-item v-for="image in images" :key="image">
-            <img :src="VUE_APP_URL + 'uploads/' + image" alt="image" v-if="$store.getters.currentItem.images.length > 0">
+        <el-carousel-item v-for="image in images" :key="image.id">
+            <img :src="VUE_APP_URL + 'uploads/' + image.name" alt="image" v-if="$store.getters.currentItem.images.length > 0">
             <img :src="image" alt="image" v-else>
         </el-carousel-item>
     </el-carousel>

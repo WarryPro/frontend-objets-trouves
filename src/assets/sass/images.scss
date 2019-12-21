@@ -1,0 +1,11 @@
+.images-container {
+    margin: 1rem auto;
+    padding: 1rem;
+    border: 1px solid #DCDFE6;
+    border-radius: 5px;
+    .el-upload-dragger {
+        border: none;
+        width: auto;
+        height: auto;
+    }
+}

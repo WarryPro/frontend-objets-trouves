@@ -15,7 +15,9 @@ $paragraphFW: 300;
 $grayLight: #b5b5b5;
 
 
-
+h3 {
+    font-size: $TitleSize;
+}
 .title, .subtitle {
     display: inline-block;
     position: relative;
