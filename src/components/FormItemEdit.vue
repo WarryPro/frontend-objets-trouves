@@ -1,18 +1,18 @@
 <template>
-    <b-container v-if="itemFound !== null" class="form-item--edit">
+    <b-container v-if="item !== null">
         <!-- <input type="file" id="file" ref="file" v-on:change="handleFileUpload()"/> -->
-        <el-form :model="itemFound" :rules="rules" ref="itemFound" class="form-item-found">
+        <el-form :model="item" :rules="rules" ref="item" class="form-item-edit col-sm-12">
             <h4>Editer l'objet</h4>
             <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Itaque debitis, dignissimos, repellendus reprehenderit. Soluta, quas impedit?</p>
             <!-- Place  -->
             <el-form-item prop="title">
-                <el-input v-if="itemFound.title !== null" v-model="itemFound.title" prefix-icon="el-icon-document-checked" placeholder="Nom de l'objet"></el-input>
+                <el-input v-if="item.title !== null" v-model="item.title" prefix-icon="el-icon-document-checked" placeholder="Nom de l'objet"></el-input>
             </el-form-item>
 
             <!-- Calendar -->
             <el-form-item>
-                <el-date-picker v-if="itemFound.created.date !== null"
-                    v-model="itemFound.created.date"
+                <el-date-picker v-if="item.created.date !== null"
+                    v-model="item.created.date"
                     type="date"
                     placeholder="Date où vous l'avez perdu"
                     format="dd/MM/yyyy"
@@ -22,11 +22,11 @@
 
             <!-- city -->
             <el-form-item prop="city">
-                <el-input v-if="itemFound.city !== null" v-model="itemFound.city" placeholder="Lieu ou ville où vous avez perdu l'objet" prefix-icon="el-icon-location"></el-input>
+                <el-input v-if="item.city !== null" v-model="item.city" placeholder="Lieu ou ville où vous avez perdu l'objet" prefix-icon="el-icon-location"></el-input>
             </el-form-item>
 
             <el-form-item prop="category">
-                <el-select v-if="itemFound.category !== null" v-model="itemFound.category" placeholder="Séléctionnez une catégorie">
+                <el-select v-if="item.category !== null" v-model="item.category" placeholder="Séléctionnez une catégorie">
                     <el-option
                     v-for="category in categories"
                     :key="category.value"
@@ -37,23 +37,11 @@
             </el-form-item>
 
             <el-form-item prop="description">
-                <el-input v-if="itemFound.description !== null" type="textarea" v-model="itemFound.description" placeholder="Ajoutez une description de l'objet (couleur, type d'objet, etc)"></el-input>
+                <el-input v-if="item.description !== null" type="textarea" v-model="item.description" placeholder="Ajoutez une description de l'objet (couleur, type d'objet, etc)"></el-input>
             </el-form-item>
-            
-            <el-upload
-                    class="upload-demo"
-                    drag
-                    :action="VUE_APP_URL + 'upload'"
-                    ref="upload"
-                    :auto-upload="false"
-                    multiple>
-                    <i class="el-icon-upload"></i>
-                    <div class="el-upload__text">Glissez votre image ici ou <em>faites click pour la charger</em></div>
-                    <div slot="tip" class="el-upload__tip">Seulement fichier en format jpg/png avec une taille plus petite que 5Mo</div>
-            </el-upload>
 
             <el-form-item class="form-submit">
-                <el-button type="primary" :loading="loading" @click="submitForm('itemFound')">{{messageButton}}</el-button>
+                <el-button type="primary" :loading="loading" @click="submitForm('item')">{{messageButton}}</el-button>
             </el-form-item>
         </el-form>
     </b-container>
@@ -69,7 +57,7 @@
 
         mounted() {
             this.getCategories();
-            this.itemFound = store.getters.currentItem;
+            this.item = store.getters.currentItem;
         },
 
         data() {
@@ -77,7 +65,7 @@
                 VUE_APP_URL: Global.VUE_APP_URL,
                 loading: false,
                 messageButton: "PUBLIER L'OBJET",
-                itemFound: {
+                item: {
                     created: {
                         date: 'now'
                     }
@@ -202,7 +190,7 @@
                     this.messageButton = "EN COURS..."
                     
                     setTimeout(() => {
-                        axios.post(this.VUE_APP_URL + "items/new", this.itemFound, {
+                        axios.put(this.VUE_APP_URL + "items/edit/" + this.item.id, this.item, {
                             headers: {
                                 "Authorization": store.getters.userToken
                             }
@@ -210,14 +198,12 @@
                         .then(res => {
                             if (res.data.status !== "error") {
                                 setTimeout(() => {
-                                    this.submitUpload();
                                     this.loading = false;
-                                    this.resetForm(formName);
                                     this.messageButton = "PUBLIER L'OBJET"
                                     //Flash message 
                                     this.$message({
                                         type: 'success',
-                                        message: "L'objet a été publié avec succès :)"
+                                        message: "L'objet a été édité avec succès :)"
                                     });
 
                                 }, 2000)
@@ -244,16 +230,6 @@
                         return false;
                     }
                 });
-            },
-
-            
-            submitUpload() {
-                this.$refs.upload.submit();
-                this.$refs.upload.clearFiles();
-            },
-
-            resetForm(formName) {
-                this.$refs[formName].resetFields();
             }
         }
     }
@@ -263,8 +239,7 @@
     .container {
         padding: 0;
     }
-    .form-item-found {
-        max-width: 400px;
+    .form-item-edit {
         margin: 0 auto;
         padding: 2rem 1rem;
         border: 1px solid #DCDFE6;

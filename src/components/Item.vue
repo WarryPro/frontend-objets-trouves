@@ -52,7 +52,7 @@
                 <b-col sm="12" md="6" lg="4" v-if="$store.getters.loggedIn && item.author.email !== $store.state.user.email">
                     <FormItemContact></FormItemContact>
                 </b-col>
-                <b-col sm="12" md="6" lg="4" v-else-if="$store.getters.loggedIn && item.author.email === $store.state.user.email">
+                <b-col sm="12" lg="4" v-else-if="$store.getters.loggedIn && item.author.email === $store.state.user.email">
                     <div class="item-images-container">
                         <div>
                             <ImageEdit></ImageEdit>
