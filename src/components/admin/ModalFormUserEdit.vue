@@ -1,30 +1,33 @@
 <template>
     <el-dialog
-        title="Créez votre compte"
-        :visible.sync="$store.state.signupVisible"
+        title="Editer l'utilisateur"
+        :visible.sync="$store.state.adminUserEdit"
         :before-close="handleClose">
-        <Signup></Signup>
+        <AdminUserEdit></AdminUserEdit>
     </el-dialog>
 </template>
 
 <script>
-    import Signup from './Signup';
+    import AdminUserEdit from './FormUserEdit';
     export default {
         components: {
-            'Signup' : Signup
+            'AdminUserEdit' : AdminUserEdit
         },
+
         methods: {
             handleClose(done) {
                 this.$confirm('Vous êtes sur de vouloir quitter le formulaire ?')
                 .then(()=> {
                     done();
+                    this.$store.state.adminUserEdit = false;
+                    this.$store.state.selectedUserEdit = null;
                 })
                 .catch(() => {});
-            }
+            },
         }
   };
 </script>
 
 <style lang="scss" scoped>
-
+    
 </style>

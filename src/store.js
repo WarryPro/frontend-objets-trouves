@@ -7,16 +7,20 @@ Vue.use(Vuex);
 export default new Vuex.Store({
 
     state: {
+        // GENERALS STATES
         signupVisible: false,
         loginVisible: false,
-        editActive: false,
+        editActive: false, // Active item edit
         user: JSON.parse(localStorage.getItem('user')) || null,
         token: localStorage.getItem('getToken') || null,
         logoutVisible: false,
 
         // props pour les items
         item: Object, // Item seleccionné par son item (affiché sur la page objet/:id)
-            
+
+        // ADMIN STATES
+        adminUserEdit: false,
+        selectedUserEdit: null
     },
 
     getters: {
@@ -66,6 +70,12 @@ export default new Vuex.Store({
         },
         getCurrentItem(state, data) {
             state.item = data;
+        },
+
+        // ADMIN MUTATIONS
+        showAdminUseredit(state, data) {
+            state.selectedUserEdit = data;
+            state.adminUserEdit = true;
         }
     },
 

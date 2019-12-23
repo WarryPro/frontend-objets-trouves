@@ -1,12 +1,25 @@
 <template>
     <div>
-        Admin dashboard
+        <el-divider></el-divider>
+        <b-container>
+            <!-- Title et intro -->
+            <div>
+                <h2 class="title">Dashboard d'administration</h2>  
+                <p>Gérez les utilisateurs, objets ou catégories depuis le dasboard d'administration</p>
+            </div>
+            <!-- TABS de gestion -->
+            <DashboardTabs></DashboardTabs>
+        </b-container>
     </div>
 </template>
 
 <script>
+    import DashboardTabs from './DashboardTabs'
     export default {
         name: 'AdminDashboard',
+        components: {
+            'DashboardTabs' : DashboardTabs
+        },
         mounted() {
             this.openFullScreen();
         },
