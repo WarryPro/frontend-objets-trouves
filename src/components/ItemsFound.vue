@@ -2,7 +2,6 @@
   <div>
     <el-divider></el-divider>
     <div class="page-items">
-      <Filters></Filters>
       <div>
           <Search 
             @search="querySearch" 
@@ -63,7 +62,6 @@
     import axios from "axios";
     import moment from "moment";
     // custom components
-    import Filters from './Filters';
     import Search from './search';
 
   export default {
@@ -76,7 +74,6 @@
       this.getItems();
     },
     components: {
-        'Filters' : Filters,
         'Search'  : Search,
     },
 

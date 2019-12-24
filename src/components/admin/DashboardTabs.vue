@@ -6,7 +6,7 @@
         </el-tab-pane>
         
         <el-tab-pane label="Objets">
-            Objets
+            <Items></Items>
         </el-tab-pane>
 
         <el-tab-pane label="Catégories">
@@ -16,12 +16,14 @@
 </template>
 <script>
 import Users from './Users';
+import Items from './Items';
 import Categories from './Categories';
 
     export default {
         name: "DashboardTabs",
         components: {
             'Users' : Users,
+            'Items': Items,
             'Categories': Categories,
         },
         data() {

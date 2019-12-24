@@ -2,7 +2,6 @@
   <div>
     <el-divider></el-divider>
     <div class="page-items">
-      <Filters></Filters>
       <div>
         <h2 class="title">Derniers objets trouvés et rapportés</h2>
         <b-container class="items-container">
@@ -54,7 +53,6 @@ import { Global } from "../../Global";
 import axios from "axios";
 import moment from "moment";
 // custom components
-import Filters from "./Filters";
 export default {
   name: "LastItemsComponent",
 
@@ -64,7 +62,6 @@ export default {
     moment.locale("fr");
   },
   components: {
-    Filters: Filters
   },
 
   data() {

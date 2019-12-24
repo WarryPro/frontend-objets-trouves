@@ -8,11 +8,14 @@
     <ModalFormSignup v-if="$store.state.signupVisible"></ModalFormSignup>
     <ModalFormLogin v-if="$store.state.loginVisible"></ModalFormLogin>
     <ModalFormUsersEdit v-if="$store.state.adminUserEdit"></ModalFormUsersEdit>
+
+    <FooterComponent></FooterComponent>
   </div>
 </template>
 
 <script>
 import HeaderComponent from './components/header/HeaderComponent';
+import FooterComponent from './components/footer/FooterComponent';
 import ModalFormSignup from './components/ModalFormSignup';
 import ModalFormLogin from './components/ModalFormLogin';
 import ModalFormUsersEdit from './components/admin/ModalFormUserEdit';
@@ -21,6 +24,7 @@ export default {
   name: 'app',
   components: {
     HeaderComponent,
+    FooterComponent,
     ModalFormSignup,
     ModalFormLogin,
     ModalFormUsersEdit

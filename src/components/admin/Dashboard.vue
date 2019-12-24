@@ -10,6 +10,7 @@
             <!-- TABS de gestion -->
             <DashboardTabs></DashboardTabs>
         </b-container>
+        <el-divider></el-divider>
     </div>
 </template>
 
@@ -39,5 +40,7 @@
 </script>
 
 <style lang="scss" scoped>
-
+    .el-table__body {
+        max-width: 100% !important;
+    }
 </style>

@@ -1,7 +1,6 @@
 <template>
   <div>
     <div class="page-items">
-      <Filters></Filters>
       <div>
         <h2 class="title">Resultats de votre recherche</h2>
         <p v-if="!items">Aucun objet trouvé...</p>
@@ -41,7 +40,6 @@
 // import axios from "axios";
 import moment from "moment";
 // custom components
-import Filters from './Filters'
 export default {
   name: "HomeSearchResult",
 
@@ -50,7 +48,6 @@ export default {
     moment.locale('fr');
   },
   components: {
-    'Filters' : Filters
   },
 
   data() {
