@@ -80,7 +80,7 @@
                     headers: {
                         'Authorization' : store.getters.userToken
                     }
-                    }).then(res => {
+                }).then(res => {
                     if (res.data.status === "success") {
                         this.users = res.data;
                         this.tableData = res.data.users;

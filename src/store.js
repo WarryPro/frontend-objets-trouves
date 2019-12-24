@@ -20,7 +20,10 @@ export default new Vuex.Store({
 
         // ADMIN STATES
         adminUserEdit: false,
-        selectedUserEdit: null
+        selectedUserEdit: null,
+        createCategory: false,
+        currentCategory: null, //Catégorie selectionnée pour editer/supprimer
+        editCategory: false,
     },
 
     getters: {
@@ -37,6 +40,9 @@ export default new Vuex.Store({
             if(state.user !== null) {
                 return state.user.role === 'admin';
             }
+        },
+        currentCategory(state) {
+            return state.currentCategory;
         }
     },
 
@@ -76,6 +82,19 @@ export default new Vuex.Store({
         showAdminUseredit(state, data) {
             state.selectedUserEdit = data;
             state.adminUserEdit = true;
+        },
+        showCategoryCreate(state) {
+            state.createCategory = true
+        },
+        setCurrentCategory(state, data) {
+            if(data !== null) {
+                state.currentCategory = data;
+                state.editCategory = true;
+            }
+            else {
+                state.currentCategory = null;
+                state.editCategory = false;
+            }
         }
     },
 

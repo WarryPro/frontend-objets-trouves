@@ -20,7 +20,6 @@ import ModalFormUsersEdit from './components/admin/ModalFormUserEdit';
 export default {
   name: 'app',
   components: {
-    // HelloWorld
     HeaderComponent,
     ModalFormSignup,
     ModalFormLogin,

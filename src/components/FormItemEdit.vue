@@ -171,11 +171,10 @@
             getCategories() {
                 axios.get(this.VUE_APP_URL+"categories")
                 .then(response => {
-                    response.data.forEach(resCategory => {
-                        this.categories.forEach(element => {
-                            element.value = resCategory.id
-                            element.label = resCategory.name
-                        });
+                    this.categories = response.data;
+                    this.categories.forEach(category => {
+                        category.value = category.id
+                        category.label = category.name
                     });
                 })
                 .catch(error => {
