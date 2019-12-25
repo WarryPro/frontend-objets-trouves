@@ -6,7 +6,8 @@
       placeholder="Faites votre recherche"
       :trigger-on-focus=false 
       :hide-loading=true
-      :clearable=true>
+      :clearable=true
+       suffix-icon="el-icon-search">
     </el-autocomplete>
 </template>
 

@@ -10,7 +10,6 @@
             <!-- TABS de gestion -->
             <DashboardTabs></DashboardTabs>
         </b-container>
-        <el-divider></el-divider>
     </div>
 </template>
 

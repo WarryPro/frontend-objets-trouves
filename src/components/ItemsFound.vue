@@ -3,10 +3,12 @@
     <el-divider></el-divider>
     <div class="page-items">
       <div>
-          <Search 
+          <Search
             @search="querySearch" 
             @state="getState"
-            :defaultItems="items.items"></Search>
+            :defaultItems="items.items"
+            class="container">
+          </Search>
         <b-container class="items-container">
           <el-card :body-style="{ padding: '0px' }" v-for="item in items.items" :key="item.id">
             <img v-if="item.images[0]"
@@ -129,4 +131,7 @@
 </script>
 
 <style lang="scss" scoped>
+  .el-autocomplete {
+    margin-bottom: 2rem;
+  }
 </style>

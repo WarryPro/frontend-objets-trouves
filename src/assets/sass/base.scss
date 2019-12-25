@@ -1,3 +1,31 @@
 button, button:focus {
     outline: none;
 }
+
+footer {
+    margin-top: 5rem;
+    padding: 2rem 0;
+    background-color: #F6F6F6;
+    .container {
+        display: block;
+        .footer-column {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+    }
+    // Tablet responsive (MD) to up
+    @media screen and (min-width: 768px){
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            .footer-column {
+                text-align: left;
+            }
+        }
+    }
+}
+
+.el-pagination {
+    margin: 2rem;
+}

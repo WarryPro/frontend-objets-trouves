@@ -1,3 +1,26 @@
+.banner.homepage {
+    // Tablet responsive (small) to up
+    @media screen and (max-width: 500px){
+        min-height: 55vh;
+        .banner__form {
+            top: 135px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .el-input, .el-button {
+            width: 300px;
+        }
+    }
+    // Tablet responsive (MD) to up
+    @media screen and (min-width: 520px) and (max-width: 768px){
+        min-height: 40vh;
+    }
+}
+
 .form-item-found, .form-item-edit, .form-user-edit {
     .el-date-editor, .el-select {
         width: 100%;

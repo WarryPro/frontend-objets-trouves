@@ -1,6 +1,6 @@
 <template>
     <!-- Banner -->
-        <div class="banner">
+        <div :class="['banner', {homepage: $route.path == '/' }]">
             <img src="@/assets/images/Background-banner.svg" alt="Banner" class="img-fluid">
 
             <div v-if="$route.path == '/'" class="banner__form">
