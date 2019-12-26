@@ -3,7 +3,7 @@
         <!-- <input type="file" id="file" ref="file" v-on:change="handleFileUpload()"/> -->
         <el-form :model="item" :rules="rules" ref="item" class="form-item-edit col-sm-12">
             <h4>Editer l'objet</h4>
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Itaque debitis, dignissimos, repellendus reprehenderit. Soluta, quas impedit?</p>
+            <p>Merci de remplir le formulaire ou les champs que vous voulez changer.</p>
             <!-- Place  -->
             <el-form-item prop="title">
                 <el-input v-if="item.title !== null" v-model="item.title" prefix-icon="el-icon-document-checked" placeholder="Nom de l'objet"></el-input>

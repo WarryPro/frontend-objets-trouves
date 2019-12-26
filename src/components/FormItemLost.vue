@@ -3,7 +3,7 @@
         <!-- <input type="file" id="file" ref="file" v-on:change="handleFileUpload()"/> -->
         <el-form :model="itemFound" :rules="rules" ref="itemFound" class="form-item-found">
             <h4>J'ai perdu un objet</h4>
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Itaque debitis, dignissimos, repellendus reprehenderit. Soluta, quas impedit?</p>
+            <p>Merci de decrire le mieux l'objet que vous avez perdu.</p>
             <!-- Place  -->
             <el-form-item prop="title">
                 <el-input v-model="itemFound.title" prefix-icon="el-icon-document-checked" placeholder="Nom de l'objet"></el-input>
@@ -263,10 +263,7 @@
 </script>
 
 <style lang="scss" scoped>
-    .container {
-        // padding: 0;
-
-    }
+    
     .form-item-found {
         max-width: 400px;
         margin: 0 auto;
