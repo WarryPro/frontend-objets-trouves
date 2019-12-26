@@ -22,7 +22,16 @@
 }
 
 .form-item-found, .form-item-edit, .form-user-edit {
+    .el-upload {
+        display: block;
+    }
+    .el-upload-dragger {
+        width: 100%;
+    }
     .el-date-editor, .el-select {
         width: 100%;
+    }
+    .el-button {
+        margin-top: 1rem;
     }
 }

@@ -1,6 +1,6 @@
 <template>
     <div>
-    <el-table :data="tableData.filter(data => !search || data.firstname.toLowerCase().includes(search.toLowerCase()))" style="width: 100%">
+    <el-table class="table-users" :data="tableData.filter(data => !search || data.firstname.toLowerCase().includes(search.toLowerCase()))" style="width: 100%">
         <el-table-column 
             type="expand">
             <template slot-scope="props">

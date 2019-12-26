@@ -264,7 +264,8 @@
 
 <style lang="scss" scoped>
     .container {
-        padding: 0;
+        // padding: 0;
+
     }
     .form-item-found {
         max-width: 400px;

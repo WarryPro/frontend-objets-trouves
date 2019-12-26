@@ -1,10 +1,10 @@
 <template>
     <div>
-    <el-table :data="tableData.filter(data => !search || data.title.toLowerCase().includes(search.toLowerCase()))" style="width: 100%">
+    <el-table class="table-items" :data="tableData.filter(data => !search || data.title.toLowerCase().includes(search.toLowerCase()))" style="width: 100%">
         <el-table-column 
             type="expand">
             <template slot-scope="props">
-                <p><span class="baseline">Titre:</span>  {{ props.row.title }}</p>
+                <p><span class="baseline">Titre:</span><router-link :to="{path: '/objets/'+props.row.id}"> {{ props.row.title }}</router-link></p>
                 <p v-if="props.row.type == 0"><span class="baseline">Type d'objet: </span><el-tag type="success" v-if="props.row.type == 0">Objet trouvé</el-tag></p>
                 <p v-if="props.row.type == 1"><span class="baseline">Type d'objet: </span><el-tag type="warning" v-if="props.row.type == 1">Perdu</el-tag></p>
                 <p><span class="baseline">Email de l'auteur:</span> {{ props.row.author.email}}</p>

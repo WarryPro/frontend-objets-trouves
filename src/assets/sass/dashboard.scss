@@ -1,0 +1,13 @@
+.table-categories, .table-users, .table-items {
+    // Tablet responsive (small)
+    @media screen and (max-width: 767px){
+        .is-right .cell {
+            padding: 0 10px 0 0;
+        }
+
+        .is-right .cell .el-input {
+            padding: 0;
+        }
+
+    }
+}

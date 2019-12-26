@@ -2,7 +2,7 @@
     <div>
         <ModalCategoryCreate></ModalCategoryCreate>
         <ModalCategoryEdit v-if="$store.state.editCategory"></ModalCategoryEdit>
-        <el-table :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))" style="width: 100%">
+        <el-table class="table-categories" :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))" style="width: 100%">
             <el-table-column 
                 type="expand">
                 <template slot-scope="props">
@@ -10,14 +10,6 @@
                     <p><span class="baseline">Catégorie:</span>  {{ props.row.name }}</p>
                     <p><span class="baseline">Nombre d'objets:</span> {{ props.row.totalItems }}</p>
                 </template>
-            </el-table-column>
-
-            <el-table-column>
-                
-            </el-table-column>
-            <el-table-column
-                label="ID"
-                prop="id">
             </el-table-column>
 
             <el-table-column
