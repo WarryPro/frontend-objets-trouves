@@ -7,7 +7,7 @@
         <b-container class="items-container">
             <el-card :body-style="{ padding: '0px' }" v-for="item in items" :key="item.id">
               <img
-                src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
+                :src="VUE_APP_URL + 'uploads/' + item.images[0].name"
                 class="image"
               />
               <div style="padding: 20px;">
@@ -36,6 +36,7 @@
 </template>
 
 <script>
+import {Global} from '../../Global'
 // Libraries
 // import axios from "axios";
 import moment from "moment";
@@ -52,6 +53,7 @@ export default {
 
   data() {
     return {
+      VUE_APP_URL: Global.VUE_APP_URL,
       items: []
     };
   },
