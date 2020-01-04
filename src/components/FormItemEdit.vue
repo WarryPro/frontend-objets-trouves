@@ -56,8 +56,8 @@
         name: 'FormItemEdit',
 
         mounted() {
-            this.getCategories();
             this.item = store.getters.currentItem;
+            this.getCategories();
         },
 
         data() {
@@ -173,8 +173,9 @@
                 .then(response => {
                     this.categories = response.data;
                     this.categories.forEach(category => {
-                        category.value = category.id
-                        category.label = category.name
+                        category.value = category.id;
+                        category.label = category.name;
+                        this.item.category = category.value;
                     });
                 })
                 .catch(error => {
